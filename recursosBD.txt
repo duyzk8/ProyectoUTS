@@ -1,0 +1,22 @@
+resourceDataBase
+
+create table resources(rec_id varchar (20) primary key, rec_description varchar(100), rec_model varchar(100), rec_brand varchar(100), rec_sn varchar(100), rec_ubication varchar(100))
+insert into resources values('243000000548','COMPUTADORA','LANIX','BRAIN','27000412190465','CISCO')
+insert into resources values('243000000547','COMPUTADORA','LANIX','BRAIN','27000412190576','CISCO')
+insert into resources values('231000000112','SILLA','REQUIEZ','N/A','N/A','LAB_1101')
+
+rec_id	rec_description	rec_model	rec_brand	rec_sn	rec_ubication
+231000000112	SILLA	REQUIEZ	N/A	N/A	LAB_1101
+243000000547	COMPUTADORA	LANIX	BRAIN	27000412190576	CISCO
+243000000548	COMPUTADORA	LANIX	BRAIN	27000412190465	CISCO
+
+
+create table users(user_id varchar(10) primary key, user_email varchar(100), user_password varchar(100))
+insert into users values('L531710207','bdadmin@uts.edu.com','admin@.1')
+
+user_id	user_email	user_password
+L531710207	bdadmin@uts.edu.com	admin@.1
+
+
+
+
