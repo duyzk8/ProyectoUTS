@@ -1,185 +1,53 @@
-import axios from "axios";
-import React from "react";
-import './Registrorecursos.css'
+import { useEffect, useState } from "react";
+import RecursoEqComputo from "./RecursoEqComputo";
+import RecursoMobiliario from "./RecursoMobiliario";
+import RecursoHerramienta from "./RecursoHerramienta";
 
-const url = "http://utsresourcesapi.somee.com/api/resources";
-class Registrorecursos extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      resources: [],
-      id: "",
-      description: "",
-      model: "",
-      brand: "",
-      sn: "",
-      ubication: "",
-    };
-    this.handleId = this.handleId.bind(this);
-    this.handleDescription = this.handleDescription.bind(this);
-    this.handleModel = this.handleModel.bind(this);
-    this.handleBrand = this.handleBrand.bind(this);
-    this.handleSn = this.handleSn.bind(this);
-    this.handleUbication = this.handleUbication.bind(this);
+const Registrorecursos = () => {
+  const [recurso, setRecurso] = useState("seleccionRecurso");
+  const [renderHerramienta, setRenderHerramienta] = useState(false);
+  const [renderEqComputo, setRenderEqComputo] = useState(false);
+  const [renderMobiliario, setRenderMobiliario] = useState(false);
 
-    this.GuardarDatos = this.GuardarDatos.bind(this);
-    this.BorrarDatos = this.BorrarDatos.bind(this);
-    this.EditarDatos = this.EditarDatos.bind(this);
-  }
-  //#region handlers
+  useEffect(() => {
+    recurso === "eqcomputo"
+      ? setRenderEqComputo(true)
+      : setRenderEqComputo(false);
+    recurso === "mobiliario"
+      ? setRenderMobiliario(true)
+      : setRenderMobiliario(false);
+    recurso === "herramienta"
+      ? setRenderHerramienta(true)
+      : setRenderHerramienta(false);
+  }, [recurso]);
 
-  handleId(event) {
-    this.setState({ id: event.target.value });
-  }
-  handleDescription(event) {
-    this.setState({ description: event.target.value });
-  }
-  handleModel(event) {
-    this.setState({ model: event.target.value });
-  }
-  handleBrand(event) {
-    this.setState({ brand: event.target.value });
-  }
-  handleSn(event) {
-    this.setState({ sn: event.target.value });
-  }
-  handleUbication(event) {
-    this.setState({ ubication: event.target.value });
-  }
+  const handleOnChange = (e) => {
+    setRecurso(e.target.value);
+  };
 
-  cargarDatos() {
-    axios.get(url).then((Response) => {
-      this.setState({ resources: Response.data });
-    });
-  }
+  return (
+    <>
+    <br/>
+      <div style={{ textAlign: "center" }}>
+        <h3>Seleccione el tipo de recurso a ingresar al sistema:</h3>
+      </div>
+      <br/>
+      <div style={{ textAlign: "center" }}>
+        <select class="custom-select" value={recurso} onChange={handleOnChange}>
+          <option value="seleccionRecurso">Selecciona el Recurso</option>
+          <option value="herramienta">Herramienta</option>
+          <option value="mobiliario">Mobiliario</option>
+          <option value="eqcomputo">EQ. de Computo</option>
+        </select>
+      </div>
 
-  BorrarDatos() {
-    axios.delete(url + "/" + this.state.id).then((Response) => {
-      this.cargarDatos();
-    });
-  }
-
-  EditarDatos() {
-    axios
-      .put(url + "/" + this.state.rec_id, {
-        rec_description: this.state.description,
-        rec_model: this.state.model,
-        rec_brand: this.state.brand,
-        rec_sn: this.state.sn,
-        rec_ubication: this.state.ubication,
-      })
-      .then((Response) => {
-        this.cargarDatos();
-      });
-  }
-
-  GuardarDatos() {
-    let resources = {
-      rec_id: this.state.id,
-      rec_description: this.state.description,
-      rec_model: this.state.model,
-      rec_brand: this.state.brand,
-      rec_sn: this.state.sn,
-      rec_ubication: this.state.ubication,
-    };
-    console.log(resources);
-    axios.post(url, resources).then((Response) => {
-      this.cargarDatos();
-    });
-  }
-
-  componentDidMount() {
-    this.cargarDatos();
-  }
-  //#endregion
-
-  render() {
-    return (
-      <>
-        <div className="center">
-          <br />
-          <br />
-          <table class="center">
-            <tbody>
-              <tr>
-                <td>ID:</td>
-                <td>
-                  <input value={this.state.id} onChange={this.handleId} />
-                </td>
-                <td>Modelo:</td>
-                <td>
-                  <input value={this.state.model} onChange={this.handleModel} />
-                </td>
-                <td>Numero de Serie:</td>
-                <td>
-                  <input value={this.state.sn} onChange={this.handleSn} />
-                </td>
-              </tr>
-              <br />
-              <tr>
-                <td>Descripción:</td>
-                <td>
-                  <input
-                    value={this.state.description}
-                    onChange={this.handleDescription}
-                  />
-                </td>
-                <td>Marca:</td>
-                <td>
-                  <input value={this.state.brand} onChange={this.handleBrand} />
-                </td>
-                <td>Ubicación:</td>{" "}
-                <td>
-                  <input
-                    value={this.state.ubication}
-                    onChange={this.handleUbication}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <br />
-            <div class="table">
-            <ul class="botones">
-              <li><button className="btn" onClick={this.GuardarDatos}>Ingresar</button>{" "}</li>
-              <li><button className="btn" onClick={this.EditarDatos}>Editar</button>{" "}</li>
-              <li><button className="btn" onClick={this.BorrarDatos}>Borrar</button>{" "}</li>
-            </ul>
-            </div>
-          
-        <br />
-        <div className="tabla">
-          <table border="1" className="tabla">
-            <thead>
-              <tr className="">
-                <th>Id</th>
-                <th>Descripcion</th>
-                <th>Modelo</th>
-                <th>Marca</th>
-                <th>S/N</th>
-                <th>Ubicacion</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.resources.map((resources) => {
-                return (
-                  <tr>
-                    <td>{resources.rec_id}</td>
-                    <td>{resources.rec_description}</td>
-                    <td>{resources.rec_model}</td>
-                    <td>{resources.rec_brand}</td>
-                    <td>{resources.rec_sn}</td>
-                    <td>{resources.rec_ubication}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </>
-    );
-  }
-}
-
+      <div>
+        <br/>
+        {renderHerramienta && <RecursoHerramienta />}
+        {renderEqComputo && <RecursoEqComputo />}
+        {renderMobiliario && <RecursoMobiliario />}
+      </div>
+    </>
+  );
+};
 export default Registrorecursos;

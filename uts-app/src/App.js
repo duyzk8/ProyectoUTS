@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./components/Home";
 import Registrorecursos from "./components/Registrorecursos";
-import PrestamoEquipo from "./components/PrestamoEquipo";
+import SolicitudServicio from "./components/SolicitudServicio";
 
 import SignUp from "./components/SignUp";
 
@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recursos" element={<Registrorecursos />} />
-          <Route path="/prestamos" element={<PrestamoEquipo />} />
+          <Route path="/solicitudservicio" element={<SolicitudServicio />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>

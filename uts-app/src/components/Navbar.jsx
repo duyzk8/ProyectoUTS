@@ -26,8 +26,9 @@ const Navbar = () => {
           <li>
             <NavLink to="/recursos">Administración de Recursos</NavLink>
           </li>
+          
           <li>
-            <NavLink to="/prestamos">Prestamo de equipo</NavLink>
+            <NavLink to="/solicitudservicio">Solicitud de Servicio</NavLink>
           </li>
         </ul>
         <div className="btn-group">

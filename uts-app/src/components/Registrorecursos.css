@@ -32,3 +32,25 @@ th {
     display: table;
     margin: 0 auto;
 }
+
+.custom-select {
+  padding: 10px;
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 24px 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.custom-select-servicio {
+  padding: 10px;
+  border: 1px solid var(--primary);
+  background-color: var(#fff);
+  color: rgb(0, 0, 0);
+  border-radius: 24px 4px;
+  font-size: 1.1rem;
+  font-weight: 400;
+  cursor: pointer;
+}
